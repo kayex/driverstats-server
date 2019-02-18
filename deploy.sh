@@ -1,7 +1,5 @@
 #!/bin/bash
 
-cd driverstats-server/
-
 git pull
 docker-compose pull
 docker-compose stop

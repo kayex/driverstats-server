@@ -12,7 +12,8 @@ services:
       - "5432:5432"
   api:
     image: driverstats/api
-    command: ["./wait-for-it.sh", "db:5432", "--", "migrate up", "&&" "driverstats"]
+    volumes:
+      - driverstats:/app/data
     depends_on:
       - db
     links:
@@ -24,7 +25,7 @@ services:
       - DB_USER=driverstats
       - DB_PASSWORD=postgres
       - DB_SSLMODE=disable
-      -
+      - STORAGE_PATH=/app/data
     ports:
       - "8080:8080"
   client:

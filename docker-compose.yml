@@ -2,6 +2,8 @@ version: '3'
 services:
   db:
     image: postgres
+    volumes:
+      - database:/var/lib/postgresql/data
     environment:
       POSTGRES_DB: driverstats
       POSTGRES_USER: driverstats
@@ -22,6 +24,7 @@ services:
       - DB_USER=driverstats
       - DB_PASSWORD=postgres
       - DB_SSLMODE=disable
+      -
     ports:
       - "8080:8080"
   client:
@@ -30,3 +33,6 @@ services:
       - API_URL=http://driverstats.ddns.net:8080
     ports:
       - "80:80"
+volumes:
+  database:
+  driverstats:

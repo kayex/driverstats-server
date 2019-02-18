@@ -1,0 +1,32 @@
+version: '3'
+services:
+  db:
+    image: postgres
+    environment:
+      POSTGRES_DB: driverstats
+      POSTGRES_USER: driverstats
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+  api:
+    image: driverstats/api
+    command: ["./wait-for-it.sh", "db:5432", "--", "migrate up", "&&" "driverstats"]
+    depends_on:
+      - db
+    links:
+      - db
+    environment:
+      - DB_HOST=db
+      - DB_PORT=5432
+      - DB_DATABASE=driverstats
+      - DB_USER=driverstats
+      - DB_PASSWORD=postgres
+      - DB_SSLMODE=disable
+    ports:
+      - "8080:8080"
+  client:
+    image: driverstats/client
+    environment:
+      - API_URL=http://driverstats.ddns.net:8080
+    ports:
+      - "80:80"

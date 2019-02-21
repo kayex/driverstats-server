@@ -25,6 +25,7 @@ services:
       - DB_USER=driverstats
       - DB_PASSWORD=postgres
       - DB_SSLMODE=disable
+      - API_URL=http://dev.driverstats.org
       - STORAGE_PATH=/app/data
     ports:
       - "8080:8080"

@@ -32,6 +32,7 @@ services:
     image: driverstats/client
     environment:
       - API_URL=http://driverstats.ddns.net:8080
+      - HTTPS_DISABLE=true
     ports:
       - "80:80"
 volumes:
